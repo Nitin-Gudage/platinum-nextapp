@@ -55,7 +55,7 @@ const icons = [
 
 export default function BookingSteps() {
   return (
-    <section>
+    <section className="pt-16 md:pt-24 ">
 
       {/* Section Heading */}
       <div className="text-center mb-12">

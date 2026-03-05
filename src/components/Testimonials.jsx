@@ -95,7 +95,7 @@ export default function Testimonials() {
   const rows = useMemo(() => getRows(limited, isMobile), [limited, isMobile]);
 
   return (
-    <section aria-label="Customer Reviews">
+    <section aria-label="Customer Reviews" className="pt-16 md:pt-24 ">
 
       <div className="container text-center mb-8">
         <h2 className="section-title">Customer Reviews Across India</h2>

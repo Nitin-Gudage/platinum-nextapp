@@ -19,18 +19,17 @@ export default function HeroSlider() {
       {hero_swiper_data.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-all duration-1000 ${
-            index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
-          }`}
+          className={`absolute inset-0 transition-all duration-1000 ${index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
+            }`}
         >
           {/* Background Image */}
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-top bg-no-repeat"
             style={{ backgroundImage: `url(${slide.image})` }}
           >
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
-            
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/60 to-transparent" />
+
             {/* Decorative Elements */}
             <div className="absolute top-20 right-20 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
             <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl" />
@@ -39,8 +38,8 @@ export default function HeroSlider() {
       ))}
 
       {/* Content */}
-      <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
-        <div className="max-w-3xl">
+      <div className="relative h-full grid grid-cols-12 items-center px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl col-span-12 md:col-span-7 lg:col-span-6 col-start-6 md:col-start-2 lg:col-start-6">
           {/* Badge */}
           <div className="inline-flex items-center px-4 py-2 bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 rounded-full mb-4 md:mb-6">
             <span className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse" />
@@ -100,23 +99,15 @@ export default function HeroSlider() {
       </div>
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-8 right-0 -translate-x-1/2 flex space-x-2">
         {hero_swiper_data.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              index === currentSlide ? "w-8 bg-blue-500" : "w-2 bg-white/40 hover:bg-white/60"
-            }`}
+            className={`h-2 rounded-full transition-all duration-300 ${index === currentSlide ? "w-8 bg-blue-500" : "w-2 bg-white/40 hover:bg-white/60"
+              }`}
           />
         ))}
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 right-8 animate-bounce hidden md:block">
-        <div className="w-10 h-16 border-2 border-white/30 rounded-full flex justify-center pt-2">
-          <div className="w-1 h-3 bg-white/60 rounded-full animate-scroll" />
-        </div>
       </div>
     </div>
   );

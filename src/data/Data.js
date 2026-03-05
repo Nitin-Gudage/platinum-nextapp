@@ -62,11 +62,12 @@ export const footerLinks = {
     ],
 
     services: [
-        { title: "Split AC", link: "#split-ac", icon: "snow" },
-        { title: "Ducted AC", link: "#ducted-ac", icon: "snow" },
-        { title: "Cassette AC", link: "#cassette-ac", icon: "snow" },
-        { title: "Window AC", link: "#window-ac", icon: "snow" },
-        { title: "Tower AC", link: "#window-ac", icon: "snow" },
+        { title: "Split AC", link: "/split-ac", icon: "snow" },
+        { title: "Ducted AC", link: "/ducted-ac", icon: "snow" },
+        { title: "Cassette AC", link: "/cassette-ac", icon: "snow" },
+        { title: "Window AC", link: "/window-ac", icon: "snow" },
+        { title: "Tower AC", link: "/tower-ac", icon: "snow" },
+        { title: "AHU AC", link: "/ahu-ac", icon: "snow" },
 
     ],
 
@@ -80,17 +81,17 @@ export const footerLinks = {
 };
 
 
-export const brandImages = [
-    // "/images/brands/voltas.png",
-    // "/images/brands/bluestar.png",
-    // "/images/brands/lg.png",
-    // "/images/brands/samsung.png",
-    "/images/brands/daikin.png",
-    "/images/brands/hitachi.png",
-    "/images/brands/panasonic.png",
-    "/images/brands/carrier.png",
+// export const brandImages = [
+//     // "/images/brands/voltas.png",
+//     // "/images/brands/bluestar.png",
+//     // "/images/brands/lg.png",
+//     // "/images/brands/samsung.png",
+//     "/images/brands/daikin.png",
+//     "/images/brands/hitachi.png",
+//     "/images/brands/panasonic.png",
+//     "/images/brands/carrier.png",
 
-]
+// ]
 export const brands = [
     { id: 1, name: "LG", image: "/images/brands/lg.png" },
     { id: 2, name: "Samsung", image: "/images/brands/samsung.png" },

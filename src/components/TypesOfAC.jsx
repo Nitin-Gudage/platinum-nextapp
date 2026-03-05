@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function TypesOfAC() {
   return (
-    <section>
+    <section className="pt-16 md:pt-24 ">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 

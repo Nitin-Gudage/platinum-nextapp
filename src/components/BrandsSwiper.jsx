@@ -9,7 +9,7 @@ import "swiper/css";
 
 export default function BrandsSwiper() {
   return (
-    <section >
+    <section className="px-7 py-16 md:py-24 " >
 
       {/* Header */}
       <div className="text-center mb-10 md:mb-12">
