@@ -1,123 +1,142 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { testimonials } from "../data/Data";
+import Link from "next/link";
+import Image from "next/image";
+
+/* ================= GRID ================= */
+
+const getRows = (data, isMobile) => {
+  if (isMobile)
+    return data.reduce(
+      (acc, _, i) => (i % 2 === 0 ? [...acc, data.slice(i, i + 2)] : acc),
+      []
+    );
+
+  const rows = [];
+  let i = 0;
+  let three = true;
+
+  while (i < data.length) {
+    const size = three ? 3 : 2;
+    rows.push(data.slice(i, i + size));
+    i += size;
+    three = !three;
+  }
+
+  return rows;
+};
+
+/* ================= CARD ================= */
+
+const TestimonialCard = ({ item }) => (
+  <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-500 w-full sm:w-[45%] lg:w-[30%]">
+
+    {/* Quote Icon */}
+    <div className="mb-3">
+      <svg
+        className="w-6 h-6 text-blue-200"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.01697 21L5.01697 18C5.01697 16.8954 5.9124 16 7.01697 16H10.017C10.5693 16 11.017 15.5523 11.017 15V9C11.017 8.44772 10.5693 8 10.017 8H6.01697C5.46468 8 5.01697 8.44772 5.01697 9V11C5.01697 11.5523 4.56925 12 4.01697 12H3.01697V5H13.017V15C13.017 18.3137 10.3307 21 7.01697 21H5.01697Z" />
+      </svg>
+    </div>
+
+    {/* Review */}
+    <p className="text-gray-600 italic mb-4 leading-relaxed text-sm">
+      "{item.review}"
+    </p>
+
+    {/* Author */}
+    <div className="flex items-center gap-3 pt-3 border-t border-gray-100">
+      <div className="relative">
+        <Image
+          src={item.image}
+          alt={`${item.name} customer review`}
+          width={40}
+          height={40}
+          className="rounded-full object-cover ring-2 ring-blue-100"
+        />
+
+        <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+      </div>
+
+      <div>
+        <h3 className="font-semibold text-sm text-gray-900">{item.name}</h3>
+        <p className="text-xs text-gray-500">{item.position}</p>
+      </div>
+    </div>
+
+  </div>
+);
+
+/* ================= MAIN ================= */
 
 export default function Testimonials() {
-  const testimonials = [
-    {
-      id: 1,
-      name: "Rajesh Sharma",
-      location: "Pune",
-      rating: 5,
-      comment: "Excellent service! The technician arrived on time and fixed my AC within an hour. Very professional and affordable prices. Highly recommended!",
-      avatar: "RS",
-    },
-    {
-      id: 2,
-      name: "Priya Desai",
-      location: "Khadki",
-      rating: 5,
-      comment: "Best AC service in Pune. They did a thorough cleaning and the cooling is much better now. Great customer service.",
-      avatar: "PD",
-    },
-    {
-      id: 3,
-      name: "Amit Kumar",
-      location: "Camp",
-      rating: 4,
-      comment: "Very satisfied with the AMC service. They provide timely maintenance and always professional. Worth every penny.",
-      avatar: "AK",
-    },
-    {
-      id: 4,
-      name: "Sneha Patel",
-      location: "Viman Nagar",
-      rating: 5,
-      comment: "Quick response and efficient service. My AC was not cooling properly and they fixed it the same day. Great experience!",
-      avatar: "SP",
-    },
-    {
-      id: 5,
-      name: "Vikram Singh",
-      location: "Koregaon Park",
-      rating: 5,
-      comment: "Professional technicians with proper equipment. They explained the issue clearly and provided fair pricing. Will definitely use again.",
-      avatar: "VS",
-    },
-  ];
 
-  // Even rows: 3 columns, Odd rows: 2 columns
-  const getGridClass = (index) => {
-    const row = Math.floor(index / 3);
-    if (row % 2 === 0) {
-      // Even row (0, 2, 4...) - 3 columns
-      if (index % 3 === 0) return "md:col-span-1";
-      if (index % 3 === 1) return "md:col-span-1";
-      if (index % 3 === 2) return "md:col-span-1";
-    } else {
-      // Odd row (1, 3, 5...) - 2 columns centered
-      if (index % 3 === 0) return "md:col-start-2 md:col-span-1";
-      if (index % 3 === 1) return "md:col-span-1";
-      if (index % 3 === 2) return "md:col-start-2 md:col-span-1";
-    }
-    return "md:col-span-1";
-  };
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+
+    check();
+    window.addEventListener("resize", check);
+
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const limited = useMemo(
+    () => (isMobile ? testimonials.slice(0, 4) : testimonials.slice(0, 8)),
+    [isMobile]
+  );
+
+  const rows = useMemo(() => getRows(limited, isMobile), [limited, isMobile]);
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            What Our Customers Say
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Don't just take our word for it - hear from our satisfied customers
-          </p>
-        </div>
+    <section aria-label="Customer Reviews">
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={testimonial.id}
-              className={`${getGridClass(index)}`}
-            >
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                {/* Rating */}
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      className={`w-5 h-5 ${i < testimonial.rating ? "text-yellow-400" : "text-gray-300"}`}
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-
-                {/* Comment */}
-                <p className="text-gray-600 mb-6 flex-grow">
-                  "{testimonial.comment}"
-                </p>
-
-                {/* Author */}
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                    {testimonial.avatar}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-500">{testimonial.location}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="container text-center mb-8">
+        <h2 className="section-title">Customer Reviews Across India</h2>
+        <p className="section-subtitle mt-2">
+          Trusted AC & HVAC Service Provider
+        </p>
       </div>
+
+        {rows.map((row, i) => (
+          <div
+            key={i}
+            className="flex justify-center gap-4 flex-wrap md:flex-nowrap mb-4"
+          >
+            {row.map((item) => (
+              <TestimonialCard key={item.id} item={item} />
+            ))}
+          </div>
+        ))}
+
+      <div className="container text-center mt-6">
+        <Link
+          href="/contact"
+          className="border border-gray-300 p-2 w-60 justify-around rounded-lg mb-5 inline-flex items-center gap-2 text-sm"
+        >
+          Share Your Experience
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </Link>
+      </div>
+
     </section>
   );
 }

@@ -81,16 +81,28 @@ export const footerLinks = {
 
 
 export const brandImages = [
-    "/images/brands/voltas.png",
-    "/images/brands/bluestar.png",
-    "/images/brands/lg.png",
-    "/images/brands/samsung.png",
+    // "/images/brands/voltas.png",
+    // "/images/brands/bluestar.png",
+    // "/images/brands/lg.png",
+    // "/images/brands/samsung.png",
     "/images/brands/daikin.png",
     "/images/brands/hitachi.png",
     "/images/brands/panasonic.png",
     "/images/brands/carrier.png",
 
 ]
+export const brands = [
+    { id: 1, name: "LG", image: "/images/brands/lg.png" },
+    { id: 2, name: "Samsung", image: "/images/brands/samsung.png" },
+    { id: 3, name: "Daikin", image: "/images/brands/daikin.png" },
+    { id: 4, name: "Hitachi", image: "/images/brands/hitachi.png" },
+    { id: 5, name: "Voltas", image: "/images/brands/voltas.png" },
+    { id: 6, name: "Carrier", image: "/images/brands/carrier.png" },
+    { id: 7, name: "Blue Star", image: "/images/brands/bluestar.png" },
+    // { id:8, name: "Whirlpool", image: "/images/brands/whirlpool.png" },
+];
+
+
 export const whyToChoose = [
     {
         id: 1,

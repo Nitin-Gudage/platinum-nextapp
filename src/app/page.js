@@ -9,10 +9,10 @@ import HowItWorks from "../components/HowItWorks";
 import FAQ from "../components/FAQ";
 
 export default function Home() {
-  return (
-    <div>
-      {/* Hero Slider */}
-      <HeroSlider />
+  return (<div className="mt-20">
+    {/* Hero Slider */}
+    <HeroSlider />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 bg-gray-400">
 
       {/* Quick Services */}
       <QuickServices />
@@ -25,9 +25,12 @@ export default function Home() {
 
       {/* Brands Swiper */}
       <BrandsSwiper />
+    </div>
 
-      {/* Why Choose */}
-      <WhyChoose />
+
+    {/* Why Choose */}
+    <WhyChoose />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 bg-gray-400">
 
       {/* Testimonials */}
       <Testimonials />
@@ -38,5 +41,7 @@ export default function Home() {
       {/* FAQ */}
       <FAQ />
     </div>
+  </div>
   );
 }
+

@@ -5,71 +5,79 @@ import Link from "next/link";
 
 export default function OurServices() {
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+    <section >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+
+        {/* Header */}
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Our Professional Services
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
             Comprehensive AC solutions tailored to keep your cooling systems running at peak performance
           </p>
         </div>
 
-        {/* Services Grid - 3 columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
           {our_services.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="custom-card flex flex-col items-center text-center p-6 bg-white group"
             >
-              {/* Icon/Image */}
-              <div className="relative h-56 bg-gradient-to-br from-blue-500 to-blue-700 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg className="w-20 h-20 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                  </svg>
-                </div>
-                <div className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white text-sm font-semibold px-3 py-1 rounded-full">
-                  {service.title}
+
+              {/* Icon */}
+              <div className="relative mb-4">
+                <div className="absolute inset-0 bg-blue-100 rounded-xl rotate-6 scale-110 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+
+                <div className="relative w-20 h-20 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 group-hover:border-blue-200 transition-all duration-300">
+                  <img
+                    src={service.icon}
+                    alt={service.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="max-h-14 object-contain transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-1"
+                  />
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 mb-4 line-clamp-3">
-                  {service.description}
-                </p>
-                <Link
-                  href="/services"
-                  className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+              {/* Title */}
+              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                {service.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3">
+                {service.description}
+              </p>
+
+              {/* Button */}
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-1 px-5 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
+              >
+                View Details
+                <svg
+                  className="w-4 h-4 transition-transform group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  Learn More
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </Link>
+
             </div>
           ))}
+
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-12">
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300"
-          >
-            Book a Service
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </Link>
-        </div>
       </div>
     </section>
   );
