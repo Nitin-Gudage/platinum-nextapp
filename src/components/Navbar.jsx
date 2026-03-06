@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { menu, contactInfo,logo } from "../data/Data";
+import { menu, contactInfo, logo } from "../data/Data";
 
 /* ---------------- Icons ---------------- */
 
@@ -142,9 +142,8 @@ export default function Navbar() {
 
             <form onSubmit={handleSearch} className="flex items-center gap-2" role="search">
               <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  showSearch ? "w-44 lg:w-52 opacity-100" : "w-0 opacity-0"
-                }`}
+                className={`overflow-hidden transition-all duration-300 ${showSearch ? "w-44 lg:w-52 opacity-100" : "w-0 opacity-0"
+                  }`}
               >
                 <input
                   value={searchQuery}
@@ -194,15 +193,13 @@ export default function Navbar() {
 
       <nav
         aria-label="Main Navigation"
-        className={`md:hidden fixed inset-0 z-[1001] bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`md:hidden fixed inset-0 z-[1001] bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
       >
         <div
           ref={mobileRef}
-          className={`absolute top-3 left-1/2 -translate-x-1/2 w-[90%] max-w-sm flex flex-col gap-4 items-center p-6 bg-white/95 backdrop-blur-xl border border-gray-100 shadow-2xl rounded-3xl transition-all duration-300 ease-out ${
-            isOpen ? "translate-y-0 opacity-100" : "-translate-y-6 opacity-0"
-          }`}
+          className={`absolute top-3 left-1/2 -translate-x-1/2 w-[90%] max-w-sm flex flex-col gap-4 items-center p-6 bg-white/95 backdrop-blur-xl border border-gray-100 shadow-2xl rounded-3xl transition-all duration-300 ease-out ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-6 opacity-0"
+            }`}
         >
           {/* Close */}
 
@@ -216,20 +213,9 @@ export default function Navbar() {
 
           {/* Logo */}
 
-          <div className="mt-2 flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">PG</span>
-            </div>
-
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-blue-600 leading-none">
-                Platinum
-              </span>
-              <span className="text-lg font-bold text-gray-800 leading-none">
-                Group
-              </span>
-            </div>
-          </div>
+          <Link href="/" onClick={closeMenu} className="relative z-10">
+            <img src={logo.icon} alt={logo.altName} className="h-10" />
+          </Link>
 
           <Links onClick={closeMenu} />
 
