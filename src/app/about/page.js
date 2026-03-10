@@ -1,176 +1,379 @@
-import { contactInfo } from "../../data/Data";
-import Link from "next/link";
+"use client";
 
-export const metadata = {
-    title: "About Us - Platinum Group Pune",
-    description: "Learn about Platinum Group - your trusted AC service partner in Pune with years of experience.",
-};
+import Link from "next/link";
+import Image from "next/image";
+
+import { contactInfo, cities, whyToChoose } from "../../data/Data";
+
+import { FaAward, FaTools, FaThumbsUp, FaClock, FaShieldAlt, FaCheckCircle } from "react-icons/fa";
+
+/* ================= MISSIONS ================= */
+
+const missions = [
+    {
+        title: "Quality Service",
+        desc: "We deliver high-standard HVAC solutions with attention to detail.",
+        icon: <FaCheckCircle className="text-2xl" />,
+    },
+    {
+        title: "Clean & Healthy Air",
+        desc: "We ensure clean airflow and healthy indoor environments.",
+        icon: <FaTools className="text-2xl" />,
+    },
+    {
+        title: "Safety First",
+        desc: "Our technicians follow strict safety and compliance protocols.",
+        icon: <FaShieldAlt className="text-2xl" />,
+    },
+    {
+        title: "Fast Support",
+        desc: "Quick, efficient service without compromising quality.",
+        icon: <FaClock className="text-2xl" />,
+    },
+];
+
+/* ================= STATS ================= */
+
+const stats = [
+    { number: "5+", label: "Years Experience", icon: <FaAward /> },
+    { number: "1000+", label: "AC Services Done", icon: <FaTools /> },
+    { number: "24/7", label: "Emergency Support", icon: <FaClock /> },
+    { number: "98%", label: "Satisfaction Rate", icon: <FaThumbsUp /> },
+];
+
+/* ================= SERVICES ================= */
+
+const services = [
+    { name: "AC Repair", desc: "Professional repair for all AC brands" },
+    { name: "AC Installation", desc: "Expert installation services" },
+    { name: "AMC Services", desc: "Annual maintenance contracts" },
+    { name: "Gas Refilling", desc: "Leak detection & gas refill" },
+    { name: "Duct Cleaning", desc: "Complete duct sanitization" },
+    { name: "Ducted Systems", desc: "Commercial HVAC solutions" },
+];
+
+/* ================= COMPONENT ================= */
 
 export default function AboutPage() {
-    const stats = [
-        { number: "10+", label: "Years Experience" },
-        { number: "5000+", label: "Happy Customers" },
-        { number: "50+", label: "Expert Technicians" },
-        { number: "100%", label: "Satisfaction" },
-    ];
-
-    const values = [
-        {
-            title: "Quality Service",
-            description: "We prioritize quality in every service we provide, ensuring your AC runs optimally.",
-            icon: "🎯",
-        },
-        {
-            title: "Transparent Pricing",
-            description: "No hidden charges. We believe in complete transparency in our pricing structure.",
-            icon: "💰",
-        },
-        {
-            title: "Expert Technicians",
-            description: "Our team consists of certified and experienced professionals dedicated to their work.",
-            icon: "👨‍🔧",
-        },
-        {
-            title: "Customer Support",
-            description: "24/7 customer support to address all your queries and concerns promptly.",
-            icon: "🛟",
-        },
-    ];
-
     return (
-        <div className="pt-20">
-            {/* Hero Section */}
-            <section className="bg-gradient-to-r from-blue-600 to-blue-800 py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                                About Platinum Group
-                            </h1>
-                            <p className="text-blue-100 text-lg">
-                                Your trusted partner for professional AC repair and maintenance services in Pune since 2015.
-                            </p>
-                        </div>
-                        <div className="hidden lg:block">
-                            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-                                <div className="text-6xl font-bold text-white mb-2">10+</div>
-                                <div className="text-blue-200">Years of Excellence</div>
-                            </div>
-                        </div>
-                    </div>
+        <div className="md:pt-[88px] pt-[72px]">
+
+            {/* ================= HERO ================= */}
+
+            <section className="relative h-[320px] md:h-[420px] grid grid-cols-12 items-center">
+
+                <Image
+                    src="/images/aboutpage/about.webp"
+                    alt="HVAC technicians servicing air conditioner units"
+                    fill
+                    priority
+                    className="object-cover"
+                />
+
+                <div className="absolute inset-0 bg-black/60" />
+
+                <div className="container col-span-7 col-start-5 relative z-10 text-left text-white">
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                        Leading AC & HVAC Service Provider in India
+                    </h1>
+
+                    <p className="text-base md:text-lg lg:text-xl max-w-2xl leading-relaxed">
+                        Platinum Group is a trusted, GST-registered HVAC service provider
+                        delivering reliable AC repair, installation, and maintenance
+                        solutions for homes and businesses across India.
+                    </p>
                 </div>
+
             </section>
 
-            {/* Stats Section */}
-            <section className="py-16 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="container">
+
+                {/* ================= STATS SECTION ================= */}
+
+                <section className="py-10 -mt-16 relative z-20">
+
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
                         {stats.map((stat, index) => (
-                            <div key={index} className="text-center">
-                                <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
-                                    {stat.number}
+                            <div key={index} className="bg-white rounded-xl p-5 shadow-lg hover:shadow-xl transition-all text-center">
+                                <div className="w-14 h-14 rounded-xl bg-blue-500 flex items-center justify-center text-white text-2xl mx-auto mb-3 shadow-lg shadow-blue-500/25">
+                                    {stat.icon}
                                 </div>
-                                <div className="text-gray-600">{stat.label}</div>
+                                <h3 className="text-3xl md:text-4xl font-bold text-gray-800">{stat.number}</h3>
+                                <p className="text-gray-600 font-medium">{stat.label}</p>
                             </div>
                         ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* About Content */}
-            <section className="py-20 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    </div>
+
+                </section>
+
+                {/* ================= MISSION ================= */}
+
+                <section className="py-16">
+
+                    <div className="flex flex-col gap-12">
+
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                                Who We Are
+                            <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
+                                Our Mission & Values
                             </h2>
-                            <div className="space-y-4 text-gray-600">
-                                <p>
-                                    Platinum Group is a leading AC service provider in Pune, dedicated to
-                                    delivering top-quality heating and cooling solutions for residential and
-                                    commercial clients.
-                                </p>
-                                <p>
-                                    Founded with a mission to provide reliable, efficient, and affordable AC
-                                    services, we have grown to become one of the most trusted names in the
-                                    industry. Our team of certified technicians specializes in repair,
-                                    installation, and maintenance of all major AC brands.
-                                </p>
-                                <p>
-                                    We take pride in our commitment to customer satisfaction, transparent
-                                    pricing, and professional service. Every job we undertake is backed by
-                                    our satisfaction guarantee.
-                                </p>
+
+                            <p className="text-blue-600 text-center max-w-2xl mx-auto mb-10">
+                                Committed to professional HVAC solutions with honesty,
+                                transparency, and long-term customer satisfaction.
+                            </p>
+
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                                {missions.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className="text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                                    >
+                                        <div className="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600 mx-auto mb-4">
+                                            {item.icon}
+                                        </div>
+                                        <h3 className="text-lg md:text-xl font-semibold mb-2">{item.title}</h3>
+                                        <p className="text-gray-600 text-sm md:text-base">{item.desc}</p>
+                                    </div>
+                                ))}
+
                             </div>
                         </div>
-                        <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-8 text-white">
-                            <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-                            <p className="text-blue-100 mb-6">
-                                To provide world-class AC services that ensure comfort and peace of mind
-                                for every customer.
-                            </p>
-                            <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-                            <p className="text-blue-100">
-                                To be the most preferred AC service provider in Pune, known for quality,
-                                reliability, and customer-centric approach.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            {/* Values Section */}
-            <section className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                            Our Core Values
+                        {/* ================= IMAGES ================= */}
+
+                        <div className="grid md:grid-cols-2 gap-6">
+
+                            <div className="aspect-[16/10] rounded-2xl overflow-hidden shadow-lg group">
+                                <Image
+                                    src="/images/aboutpage/about-left.webp"
+                                    alt="Professional AC repair technicians servicing cassette AC"
+                                    width={800}
+                                    height={500}
+                                    loading="lazy"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+
+                            <div className="aspect-[16/10] rounded-2xl overflow-hidden shadow-lg group">
+                                <Image
+                                    src="/images/aboutpage/about-right.webp"
+                                    alt="Expert HVAC technician installing window AC unit"
+                                    width={800}
+                                    height={500}
+                                    loading="lazy"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                {/* ================= TRUST SECTION ================= */}
+
+                <section className="py-16 bg-blue-50 rounded-2xl mb-16">
+
+                    <div className="max-w-5xl mx-auto text-center px-6">
+
+                        <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                            Trusted & Registered HVAC Company
+                        </h2>
+
+                        <p className="text-gray-700 max-w-3xl mx-auto mb-8 leading-relaxed">
+                            Platinum Group is a legally registered and GST-compliant HVAC
+                            service provider with over a decade of industry experience. We
+                            focus on transparent pricing, skilled workmanship, and reliable
+                            customer support.
+                        </p>
+
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                            <div className="bg-white p-6 rounded-xl shadow-md">
+                                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-1">
+                                    5+ Years
+                                </h3>
+                                <p className="text-gray-600 text-sm">
+                                    Serving customers since 2020
+                                </p>
+                            </div>
+
+                            <div className="bg-white p-6 rounded-xl shadow-md">
+                                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-1">
+                                    GST Registered
+                                </h3>
+                                <p className="text-gray-600 text-xs break-all">
+                                    GST No: {contactInfo.gstNumber}
+                                </p>
+                            </div>
+
+                            <div className="bg-white p-6 rounded-xl shadow-md">
+                                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-1">
+                                    Quality Standards
+                                </h3>
+                                <p className="text-gray-600 text-sm">
+                                    Genuine parts & certified tools
+                                </p>
+                            </div>
+
+                            <div className="bg-white p-6 rounded-xl shadow-md">
+                                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-1">
+                                    Customer Support
+                                </h3>
+                                <p className="text-gray-600 text-sm">
+                                    Fast response & dependable service
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                {/* ================= WHY CHOOSE SECTION ================= */}
+
+                <section className="py-16 mb-16">
+
+                    <div className="text-center mb-10">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                            Why Choose Platinum Group?
                         </h2>
                         <p className="text-gray-600 max-w-2xl mx-auto">
-                            These values guide everything we do
+                            We are committed to providing the best HVAC services with a focus on quality and customer satisfaction
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {values.map((value, index) => (
-                            <div
-                                key={index}
-                                className="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow duration-300"
-                            >
-                                <div className="text-4xl mb-4">{value.icon}</div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                                    {value.title}
-                                </h3>
-                                <p className="text-gray-600 text-sm">
-                                    {value.description}
-                                </p>
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {whyToChoose.map((item, index) => (
+                            <div key={index} className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all border border-gray-100">
+                                <div className="flex gap-4">
+                                    <div className="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                                        <Image src={item.icon} alt={item.title} width={28} height={28} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-2">{item.title}</h3>
+                                        <p className="text-gray-600 text-sm">{item.desc}</p>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
-                </div>
-            </section>
 
-            {/* CTA Section */}
-            <section className="py-20 bg-gray-900">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                        Ready to Work With Us?
-                    </h2>
-                    <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-                        Contact us today for a free consultation and quote
-                    </p>
-                    <Link
-                        href="/contact"
-                        className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300"
-                    >
-                        Get in Touch
-                        <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </Link>
-                </div>
-            </section>
+                </section>
+
+                {/* ================= SERVICES SECTION ================= */}
+
+                <section className="py-16 bg-gray-50 rounded-2xl mb-16">
+
+                    <div className="max-w-5xl mx-auto text-center px-4">
+
+                        <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                            Our AC Services
+                        </h2>
+
+                        <p className="text-gray-600 max-w-3xl mx-auto mb-8">
+                            Comprehensive HVAC solutions for residential and commercial properties
+                        </p>
+
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                            {services.map((service, index) => (
+                                <div key={index} className="bg-white p-5 rounded-xl shadow-md hover:shadow-lg transition-all">
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-1">{service.name}</h3>
+                                    <p className="text-gray-600 text-sm">{service.desc}</p>
+                                </div>
+                            ))}
+
+                        </div>
+
+                        <div className="mt-8">
+                            <Link href="/services" className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition-colors">
+                                View All Services
+                            </Link>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                {/* ================= SERVICE COVERAGE ================= */}
+
+                <section className="py-16 bg-white rounded-2xl mb-16 border border-gray-100">
+
+                    <div className="max-w-5xl mx-auto text-center px-4">
+
+                        <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                            AC & HVAC Services Across India
+                        </h2>
+
+                        <p className="text-gray-600 max-w-3xl mx-auto mb-6">
+                            We provide professional AC repair, installation, servicing, and
+                            HVAC maintenance across major cities in India.
+                        </p>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 text-sm">
+
+                            {cities.map((city) => (
+                                <span
+                                    key={city.slug}
+                                    className="bg-gray-50 cursor-pointer border border-gray-200 rounded-lg py-2 px-3 shadow-sm hover:shadow-md transition hover:text-blue-600 hover:border-blue-300"
+                                >
+                                    AC Service in {city.name}
+                                </span>
+                            ))}
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                {/* ================= CTA ================= */}
+
+                <section className="pb-16">
+
+                    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-blue-800 p-8 md:p-12">
+
+                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+
+                            <div>
+                                <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                                    Get a Free Quote Today
+                                </h3>
+
+                                <p className="text-blue-100 text-base">
+                                    Speak with our HVAC experts for personalized solutions.
+                                </p>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row gap-3">
+                                <Link
+                                    href="/contact#contact-form"
+                                    className="btn-primary whitespace-nowrap"
+                                >
+                                    Contact Us
+                                </Link>
+                                <a
+                                    href={`tel:${contactInfo.mobile1}`}
+                                    className="bg-white/20 backdrop-blur-sm text-white font-semibold py-3 px-6 rounded-xl hover:bg-white/30 transition-colors text-center"
+                                >
+                                    Call Now
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
         </div>
     );
 }

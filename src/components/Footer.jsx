@@ -172,7 +172,9 @@ function Accordion({ title, id, active, toggle, children }) {
     <div className="border-b border-gray-800 pb-3">
       <button
         onClick={() => toggle(id)}
-        className="w-full flex justify-between items-center py-3 font-semibold"
+        aria-expanded={open}
+        aria-label={open ? `Collapse ${title}` : `Expand ${title}`}
+        className="btn-ghost w-full flex justify-between items-center font-semibold"
       >
         {title}
 

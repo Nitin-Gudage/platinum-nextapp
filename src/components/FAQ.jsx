@@ -13,7 +13,9 @@ function AccordionItem({ item, open, toggle }) {
 
       <button
         onClick={toggle}
-        className="w-full flex justify-between items-center px-4 py-3 font-medium text-left hover:bg-blue-50 transition-all"
+        aria-expanded={open}
+        aria-label={open ? `Collapse: ${item.q}` : `Expand: ${item.q}`}
+        className="btn-ghost w-full flex justify-between items-center font-medium text-left"
       >
         <span className="pr-4">{item.q}</span>
 

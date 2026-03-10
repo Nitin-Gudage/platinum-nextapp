@@ -158,7 +158,7 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setShowSearch((p) => !p)}
                 aria-label="Toggle search"
-                className="text-lg p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200"
+                className="btn-ghost text-lg"
               >
                 {showSearch ? <XIcon /> : <SearchIcon />}
               </button>
@@ -169,7 +169,7 @@ export default function Navbar() {
             <a
               href={`tel:${contactInfo.mobile1.replace(/\s+/g, "")}`}
               itemProp="telephone"
-              className="flex gap-2 justify-center items-center px-4 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 rounded-xl transition-all duration-200 text-sm font-semibold shadow-md shadow-blue-500/20"
+              className="btn-primary flex gap-2 justify-center items-center"
             >
               <PhoneIcon />
               Call Now
@@ -182,7 +182,7 @@ export default function Navbar() {
             onClick={() => setIsOpen(true)}
             aria-label="Open menu"
             aria-expanded={isOpen}
-            className="md:hidden text-3xl p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200"
+            className="btn-ghost md:hidden text-3xl"
           >
             <MenuIcon />
           </button>
@@ -206,7 +206,7 @@ export default function Navbar() {
           <button
             onClick={closeMenu}
             aria-label="Close menu"
-            className="absolute top-4 right-4 text-2xl p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-all duration-200"
+            className="btn-ghost absolute top-4 right-4 text-2xl"
           >
             <XIcon />
           </button>
@@ -226,10 +226,11 @@ export default function Navbar() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search services..."
+              aria-label="Search services"
               className="w-full px-4 py-3 text-sm bg-gray-50 rounded-xl outline-none border border-transparent focus:bg-white focus:border-blue-200"
             />
 
-            <button className="text-xl p-3 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-all duration-200">
+            <button aria-label="Submit search" className="btn-ghost text-xl">
               <SearchIcon />
             </button>
           </form>
@@ -239,7 +240,7 @@ export default function Navbar() {
           <a
             href={`tel:${contactInfo.mobile1.replace(/\s+/g, "")}`}
             onClick={closeMenu}
-            className="flex items-center justify-center gap-2 w-full px-5 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold transition-all duration-200"
+            className="btn-primary flex items-center justify-center gap-2 w-full"
           >
             <PhoneIcon />
             Call Now

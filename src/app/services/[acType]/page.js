@@ -158,6 +158,8 @@ export default function ServicesByTypePage() {
                       <button
                         key={serviceType.service_type_id}
                         onClick={() => handleServiceSelect(serviceType.service_type_id)}
+                        aria-pressed={selectedService === serviceType.service_type_id}
+                        aria-label={`Select ${serviceType.name} services`}
                         className={`w-full text-left px-4 py-3 rounded-lg font-medium transition-all duration-200 ${selectedService === serviceType.service_type_id
                           ? "bg-green-50 text-green-700 border border-green-200"
                           : "bg-gray-50 text-gray-700 hover:bg-gray-100"
