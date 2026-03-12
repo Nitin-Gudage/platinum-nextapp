@@ -1,9 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import { our_services } from "../data/HeroData";
 import Link from "next/link";
+import ServiceModal from "./ServiceModal";
 
 export default function OurServices() {
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleViewDetails = (serviceId) => {
+    setSelectedServiceId(serviceId);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedServiceId(null);
+  };
   return (
     <section className="pt-16 md:pt-24 " >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -53,9 +67,9 @@ export default function OurServices() {
               </p>
 
               {/* Button */}
-              <Link
-                href="/services"
-                className="inline-flex items-center gap-1 px-5 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
+              <button
+                onClick={() => handleViewDetails(service.id)}
+                className="btn-primary"
               >
                 View Details
                 <svg
@@ -71,7 +85,7 @@ export default function OurServices() {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </Link>
+              </button>
 
             </div>
           ))}
@@ -79,6 +93,13 @@ export default function OurServices() {
         </div>
 
       </div>
+
+      {/* Service Details Modal */}
+      <ServiceModal
+        serviceId={selectedServiceId}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </section>
   );
 }

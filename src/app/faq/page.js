@@ -71,7 +71,7 @@ const FaqPage = () => {
     }, []);
 
     return (
-        <section className="w-full pt-20">
+        <section className="w-full  md:pt-20 pt-[68px]">
             {/* Hero Section */}
             <div className="relative bg-gradient-to-r from-blue-600 to-blue-800 py-16 md:py-20 overflow-hidden">
                 {/* Background Pattern */}
@@ -190,7 +190,7 @@ const FaqPage = () => {
                             <div className="space-y-3 mb-6">
                                 <Link
                                     href="/contact"
-                                    className="btn-primary w-full flex items-center justify-center gap-2"
+                                    className="btn-primary"
                                 >
                                     <HiQuestionMarkCircle className="w-5 h-5" />
                                     Get Expert Help
@@ -198,7 +198,7 @@ const FaqPage = () => {
 
                                 <a
                                     href="tel:+919876543210"
-                                    className="btn-outline w-full flex items-center justify-center gap-2"
+                                    className="btn-outline"
                                 >
                                     <HiPhone className="w-5 h-5" />
                                     Call Now

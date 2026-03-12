@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0066FF;
-  --color-primary-dark: #0052CC;
+  --color-primary: #0066ff;
+  --color-primary-dark: #0052cc;
   --color-secondary: #1e293b;
 }
 
@@ -28,6 +28,8 @@
            hover:shadow-lg hover:shadow-blue-500/25
            active:scale-95
            px-5 py-2
+          
+           flex items-center gap-3 justify-center justify-center
            text-sm
            border-0;
   }
@@ -40,6 +42,7 @@
            hover:shadow-lg hover:shadow-amber-500/25
            active:scale-95
            px-5 py-2 text-sm
+           flex items-center gap-3 justify-center
            border-0;
   }
 
@@ -49,6 +52,7 @@
            transition-all duration-300 ease-out
            hover:bg-white hover:border-gray-300 hover:shadow-lg
            active:scale-95
+           flex items-center gap-3 justify-center
            px-5 py-2 text-sm;
   }
 
@@ -57,6 +61,7 @@
            transition-all duration-200
            hover:bg-gray-100 hover:text-gray-900
            active:scale-95
+           flex items-center gap-3 justify-center
            px-4 py-2 text-sm;
   }
 
@@ -130,11 +135,12 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 
 /* Custom animations */
 @keyframes fadeInUp {
@@ -149,7 +155,8 @@ body {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -210,6 +217,21 @@ body {
   outline-offset: 2px;
 }
 
+/* Loading skeleton animation */
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* Line clamp utility */
 .line-clamp-2 {
   display: -webkit-box;
@@ -224,4 +246,3 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-

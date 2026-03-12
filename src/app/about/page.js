@@ -56,7 +56,7 @@ const services = [
 
 export default function AboutPage() {
     return (
-        <div className="md:pt-[88px] pt-[72px]">
+        <div className="md:pt-20 pt-[68px]">
 
             {/* ================= HERO ================= */}
 
@@ -292,7 +292,7 @@ export default function AboutPage() {
                         </div>
 
                         <div className="mt-8">
-                            <Link href="/services" className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition-colors">
+                            <Link href="/services" className="btn-primary w-max mx-auto">
                                 View All Services
                             </Link>
                         </div>
@@ -360,7 +360,7 @@ export default function AboutPage() {
                                 </Link>
                                 <a
                                     href={`tel:${contactInfo.mobile1}`}
-                                    className="bg-white/20 backdrop-blur-sm text-white font-semibold py-3 px-6 rounded-xl hover:bg-white/30 transition-colors text-center"
+                                    className="btn-outline whitespace-nowrap"
                                 >
                                     Call Now
                                 </a>

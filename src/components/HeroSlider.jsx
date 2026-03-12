@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { hero_swiper_data } from "../data/HeroData";
+import Link from "next/link";
 
 export default function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -14,7 +15,7 @@ export default function HeroSlider() {
   }, []);
 
   return (
-    <div className="relative h-[75vh] max-h-[75vh] overflow-hidden">
+    <div className="relative lg:h-[75vh] h-[45vh] sm:h-[75vh] overflow-hidden">
       {/* Background Slides */}
       {hero_swiper_data.map((slide, index) => (
         <div
@@ -31,8 +32,6 @@ export default function HeroSlider() {
             <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/60 to-transparent" />
 
             {/* Decorative Elements */}
-            <div className="absolute top-20 right-20 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl" />
           </div>
         </div>
       ))}
@@ -41,9 +40,9 @@ export default function HeroSlider() {
       <div className="relative h-full grid grid-cols-12 items-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl col-span-12 md:col-span-7 lg:col-span-6 col-start-6 md:col-start-2 lg:col-start-6">
           {/* Badge */}
-          <div className="inline-flex items-center px-4 py-2 bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 rounded-full mb-4 md:mb-6">
+          <div className="inline-flex items-center px-4 py-2 bg-blue-500/40 backdrop-blur-sm border border-blue-400/40 rounded-full mb-4 md:mb-6">
             <span className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse" />
-            <span className="text-blue-300 text-sm font-medium">
+            <span className="text-blue-200 text-sm font-medium">
               {hero_swiper_data[currentSlide]?.subtitle}
             </span>
           </div>
@@ -54,7 +53,7 @@ export default function HeroSlider() {
           </h1>
 
           {/* Rating & Info */}
-          <div className="flex flex-wrap items-center gap-4 md:gap-6 mb-6 md:mb-8">
+          <div className="flex flex-wrap items-center sm:gap-4 gap-1 md:gap-6 mb-6 md:mb-8">
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
                 <svg
@@ -76,30 +75,30 @@ export default function HeroSlider() {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-            <a
+            <Link
               href="/contact"
-              className="btn-primary inline-flex items-center justify-center gap-2"
+              className="btn-primary hidden md:inline-flex items-center justify-center gap-2"
             >
               <span>Get Free Quote</span>
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </a>
-            <a
-              href="/services"
+            </Link>
+            <Link
+              href={hero_swiper_data[currentSlide]?.ac_types ? `/services/${hero_swiper_data[currentSlide].ac_types.name.toLowerCase().replace(/\s+/g, "-")}` : "/services"}
               className="btn-outline inline-flex items-center justify-center gap-2"
             >
               <span>Explore Services</span>
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-8 right-0 -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-3 sm:bottom-8 right-0 -translate-x-7 flex space-x-2">
         {hero_swiper_data.map((_, index) => (
           <button
             key={index}

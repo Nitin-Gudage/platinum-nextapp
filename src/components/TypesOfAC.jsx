@@ -56,10 +56,10 @@ export default function TypesOfAC() {
 
               {/* Button */}
               <Link
-                href="/services"
-                className="inline-flex items-center gap-1 px-5 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
+                href={`/services/${ac.name.toLowerCase().replace(/\s+/g, '-')}`}
+                className="btn-primary"
               >
-                View Details
+                View Services
 
                 <svg
                   className="w-4 h-4 transition-transform group-hover:translate-x-1"

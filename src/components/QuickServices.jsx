@@ -1,10 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { ac_types, all_services, service_features } from "../data/AcData";
 import Link from "next/link";
 import Image from "next/image";
+import BookServiceModal from "./BookServiceModal";
 
 export default function QuickServices() {
+  const [selectedService, setSelectedService] = useState(null);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
+  const handleBookClick = (service) => {
+    setSelectedService(service);
+    setIsBookingModalOpen(true);
+  };
 
   if (!ac_types?.length) return null;
 
@@ -23,8 +32,9 @@ export default function QuickServices() {
   }, {});
 
   return (
-    <section>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section className="pt-16 md:pt-24 ">
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
@@ -124,12 +134,12 @@ export default function QuickServices() {
                       </span>
                     )}
 
-                    <Link
-                      href={`/services/${slug}`}
-                      className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                    <button
+                      onClick={() => handleBookClick(service)}
+                      className="btn-primary max-h-min text-center"
                     >
                       Book Now
-                    </Link>
+                    </button>
 
                   </div>
 
@@ -144,8 +154,9 @@ export default function QuickServices() {
 
           <Link
             href={`/services/${slug}`}
-            className="btn-primary inline-flex items-center gap-2 px-8 py-4"
+            className="btn-primary w-full"
           >
+
             View All Services
 
             <svg
@@ -166,6 +177,16 @@ export default function QuickServices() {
 
         </div>
       </div>
+
+      {/* Booking Modal */}
+      {selectedService && (
+        <BookServiceModal
+          service={selectedService}
+          serviceFeatures={featureMap[selectedService.service_id] || []}
+          isOpen={isBookingModalOpen}
+          onClose={() => setIsBookingModalOpen(false)}
+        />
+      )}
     </section>
   );
 }

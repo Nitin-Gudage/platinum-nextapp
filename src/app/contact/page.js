@@ -61,7 +61,7 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="pt-[72px] md:pt-[88px]">
+    <div className="md:pt-20 pt-[68px]">
 
       {/* ================= HERO ================= */}
 
@@ -109,7 +109,7 @@ const ContactPage = () => {
             </a>
 
             {/* WhatsApp */}
-            <a href={`https://wa.me/${contactInfo.whatsapp}`} target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-4 group">
+            <a href={`https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent("Hii, I want to know about your services.")}`} target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-4 group">
               <div className="w-14 h-14 rounded-xl bg-green-500 flex items-center justify-center text-white text-xl shadow-lg shadow-green-500/25 group-hover:scale-110 transition-transform">
                 <FaWhatsapp />
               </div>
@@ -383,7 +383,7 @@ const ContactPage = () => {
                   Call Now
                 </a>
                 <a
-                  href={`https://wa.me/${contactInfo.whatsapp}`}
+                  href={`https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent("Hii, I want to know about your services.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-green-500 text-white font-semibold py-3 px-8 rounded-xl hover:bg-green-600 transition-colors"

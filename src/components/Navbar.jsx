@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { menu, contactInfo, logo } from "../data/Data";
 
 /* ---------------- Icons ---------------- */
@@ -49,6 +49,7 @@ export default function Navbar() {
 
   const mobileRef = useRef(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   /* -------- Scroll Optimization -------- */
 
@@ -105,17 +106,23 @@ export default function Navbar() {
   /* -------- Menu Links -------- */
 
   const Links = ({ onClick }) => (
-    <div className="flex flex-col md:flex-row items-center gap-2 md:gap-1">
-      {menu.map((item, index) => (
-        <Link
-          key={index}
-          href={item.link}
-          onClick={onClick}
-          className="px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 text-center"
-        >
-          {item.title}
-        </Link>
-      ))}
+    <div className="flex flex-col md:flex-row items-center gap-5 md:gap-4 ">
+      {menu.map((item, index) => {
+        const isActive = pathname === item.link || pathname.startsWith(item.link + "/");
+        return (
+          <Link
+            key={index}
+            href={item.link}
+            onClick={onClick}
+            className={`text-sm font-medium transition-all duration-200 text-center ${isActive
+              ? "text-blue-600 "
+              : "text-gray-700 hover:text-gray-950 "
+              }`}
+          >
+            {item.title}
+          </Link>
+        );
+      })}
     </div>
   );
 
@@ -130,7 +137,7 @@ export default function Navbar() {
           {/* Logo */}
 
           <Link href="/" onClick={closeMenu} className="relative z-10">
-            <img src={logo.icon} alt={logo.altName} className="h-10" />
+            <img src={logo.icon} alt={logo.altName} className="sm:h-8 lg:h-10 h-10" />
           </Link>
 
           {/* Desktop Menu */}
@@ -169,7 +176,7 @@ export default function Navbar() {
             <a
               href={`tel:${contactInfo.mobile1.replace(/\s+/g, "")}`}
               itemProp="telephone"
-              className="btn-primary flex gap-2 justify-center items-center"
+              className="btn-primary"
             >
               <PhoneIcon />
               Call Now
@@ -240,7 +247,7 @@ export default function Navbar() {
           <a
             href={`tel:${contactInfo.mobile1.replace(/\s+/g, "")}`}
             onClick={closeMenu}
-            className="btn-primary flex items-center justify-center gap-2 w-full"
+            className="btn-primary w-full"
           >
             <PhoneIcon />
             Call Now

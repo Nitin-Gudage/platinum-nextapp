@@ -146,7 +146,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Platinum Group. All rights reserved.
           </p>
 
-          <div className="flex space-x-6">
+          {/* <div className="flex space-x-6">
             <Link href="/privacy" className="text-gray-500 text-sm hover:text-blue-400">
               Privacy Policy
             </Link>
@@ -154,7 +154,7 @@ export default function Footer() {
             <Link href="/terms" className="text-gray-500 text-sm hover:text-blue-400">
               Terms of Service
             </Link>
-          </div>
+          </div> */}
 
         </div>
       </div>
