@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import Image from "next/image";
 
+import { supabase } from "../../lib/supabase";
 import WhyChoose from "../../components/WhyChoose";
 
 import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp, FaClock, FaTools, FaCheckCircle } from "react-icons/fa";
@@ -28,6 +29,8 @@ const Field = ({ error, children }) => (
 /* ================= Main ================= */
 
 const ContactPage = () => {
+  const [submitStatus, setSubmitStatus] = useState({ type: "", message: "" });
+
   const {
     register,
     handleSubmit,
@@ -40,11 +43,34 @@ const ContactPage = () => {
 
   /* ================= SUBMIT ================= */
 
-  const onSubmit = (data) => {
-    console.log("Contact Form Data:", data);
-    // Here you would typically send data to your backend
-    alert("Thank you! We have received your message and will contact you shortly.");
-    reset();
+
+  const onSubmit = async (data) => {
+    try {
+      setSubmitStatus({ type: "loading", message: "Sending your message..." });
+
+      // Insert data into Supabase
+      const { error } = await supabase
+        .from("customer_query")
+        .insert([{
+          name: data.name,
+          phone: data.phone,
+          email: data.email,
+          service_name: data.service,
+          city: data.city || null,
+          message: data.message,
+          // created_at: new Date().toISOString(),
+        }]);
+
+      if (error) throw error;
+
+      setSubmitStatus({ type: "success", message: "Thank you! We have received your message and will contact you shortly." });
+      alert("Thank you! We have received your message and will contact you shortly.");
+      reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus({ type: "error", message: "Something went wrong. Please try again or call us directly." });
+      alert("Something went wrong. Please try again or call us directly.");
+    }
   };
 
   /* ================= ADDRESS ================= */
@@ -308,12 +334,18 @@ const ContactPage = () => {
                   />
                 </Field>
 
+                {submitStatus.message && (
+                  <div className={`p-3 rounded-lg text-center ${submitStatus.type === "success" ? "bg-green-100 text-green-700" : submitStatus.type === "error" ? "bg-red-100 text-red-700" : "bg-blue-100 text-blue-700"}`}>
+                    {submitStatus.message}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || submitStatus.type === "loading"}
                   className="btn-primary w-full"
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {isSubmitting || submitStatus.type === "loading" ? "Sending..." : "Send Message"}
                 </button>
 
                 <p className="text-center text-gray-500 text-sm">
@@ -356,48 +388,49 @@ const ContactPage = () => {
 
         {/* ================= WHY CHOOSE ================= */}
 
-        <section className="py-10">
-          <WhyChoose />
-        </section>
-
-        {/* ================= CTA SECTION ================= */}
-
-        <section className="pb-16">
-
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-blue-800 p-8 md:p-12 text-center">
-
-            <div className="relative z-10">
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                Need Immediate Assistance?
-              </h2>
-
-              <p className="text-blue-100 text-base md:text-lg max-w-2xl mx-auto mb-6">
-                Our expert technicians are available 24/7 for emergency AC repair and installation services across India
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href={`tel:${contactInfo.mobile1}`}
-                  className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-xl hover:bg-blue-50 transition-colors"
-                >
-                  Call Now
-                </a>
-                <a
-                  href={`https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent("Hii, I want to know about your services.")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-green-500 text-white font-semibold py-3 px-8 rounded-xl hover:bg-green-600 transition-colors"
-                >
-                  WhatsApp
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-        </section>
 
       </div>
+      <section className="py-10">
+        <WhyChoose />
+      </section>
+
+      {/* ================= CTA SECTION ================= */}
+
+      <section className="pb-16 container">
+
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-blue-800 p-8 md:p-12 text-center">
+
+          <div className="relative z-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              Need Immediate Assistance?
+            </h2>
+
+            <p className="text-blue-100 text-base md:text-lg max-w-2xl mx-auto mb-6">
+              Our expert technicians are available 24/7 for emergency AC repair and installation services across India
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href={`tel:${contactInfo.mobile1}`}
+                className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-xl hover:bg-blue-50 transition-colors"
+              >
+                Call Now
+              </a>
+              <a
+                href={`https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent("Hii, I want to know about your services.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-500 text-white font-semibold py-3 px-8 rounded-xl hover:bg-green-600 transition-colors"
+              >
+                WhatsApp
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
 
     </div>
   );

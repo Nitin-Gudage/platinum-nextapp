@@ -2,16 +2,20 @@
 
 import { useState, useEffect, useRef } from "react";
 import { ac_types } from "../data/AcData";
+import { supabase } from "../lib/supabase";
 
 export default function BookServiceModal({ service, serviceFeatures, isOpen, onClose }) {
     const [showForm, setShowForm] = useState(false);
     const [openSection, setOpenSection] = useState(null);
     const [formData, setFormData] = useState({
-        name: "",
+        customer_name: "",
         mobile: "",
         email: "",
-        address: ""
+        address: "",
+        message: ""
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', null
     const modalContentRef = useRef(null);
 
     const toggleSection = (section) => {
@@ -56,7 +60,8 @@ export default function BookServiceModal({ service, serviceFeatures, isOpen, onC
     useEffect(() => {
         if (!isOpen) {
             setShowForm(false);
-            setFormData({ name: "", mobile: "", email: "", address: "" });
+            setFormData({ customer_name: "", mobile: "", email: "", address: "", message: "" });
+            setSubmitStatus(null);
         }
     }, [isOpen]);
 
@@ -76,22 +81,55 @@ export default function BookServiceModal({ service, serviceFeatures, isOpen, onC
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
-        // Log the booking details
-        console.log("Booking Details:", {
-            service: {
-                id: service.service_id,
-                name: service.name,
-                price: service.price,
-                image: service.image,
-                acType: acTypeName
-            },
-            customer: formData,
-            timestamp: new Date().toISOString()
-        });
-        alert("Booking details submitted! Check console for details.");
-        onClose();
+        setIsSubmitting(true);
+        setSubmitStatus(null);
+
+        try {
+            // Prepare data for Supabase
+            const bookingData = {
+                customer_name: formData.customer_name,
+                address: formData.address,
+                mobile: formData.mobile,
+                email: formData.email,
+                message: formData.message,
+                selected_service_id: service.service_id
+            };
+
+            console.log("Booking Details:", {
+                service: {
+                    id: service.service_id,
+                    name: service.name,
+                    price: service.price,
+                    image: service.image,
+                    acType: acTypeName
+                },
+                customer: bookingData,
+                timestamp: new Date().toISOString()
+            });
+
+            // Insert into Supabase
+            const { data, error } = await supabase
+                .from('booking_data')
+                .insert([bookingData]);
+
+            if (error) {
+                console.error('Supabase error:', error);
+                setSubmitStatus('error');
+                alert('Failed to submit booking. Please try again or use WhatsApp.');
+            } else {
+                setSubmitStatus('success');
+                alert('Booking submitted successfully!');
+                onClose();
+            }
+        } catch (err) {
+            console.error('Error submitting booking:', err);
+            setSubmitStatus('error');
+            alert('Failed to submit booking. Please try again or use WhatsApp.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleWhatsAppClick = () => {
@@ -259,8 +297,8 @@ export default function BookServiceModal({ service, serviceFeatures, isOpen, onC
                                         </label>
                                         <input
                                             type="text"
-                                            name="name"
-                                            value={formData.name}
+                                            name="customer_name"
+                                            value={formData.customer_name}
                                             onChange={handleInputChange}
                                             required
                                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
@@ -312,11 +350,27 @@ export default function BookServiceModal({ service, serviceFeatures, isOpen, onC
                                         />
                                     </div>
 
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Message
+                                        </label>
+                                        <textarea
+                                            name="message"
+                                            value={formData.message}
+                                            onChange={handleInputChange}
+                                            rows={3}
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                            placeholder="Any additional information (optional)"
+                                        />
+                                    </div>
+
                                     <button
                                         type="submit"
-                                        className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                                        disabled={isSubmitting}
+                                        className={`w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                                            }`}
                                     >
-                                        Submit Booking
+                                        {isSubmitting ? 'Submitting...' : 'Submit Booking'}
                                     </button>
 
                                     <button
