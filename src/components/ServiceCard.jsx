@@ -246,7 +246,7 @@ export function ServiceCard({ service, features }) {
                     {/* Content - Second on mobile, first on desktop */}
                     <div className="flex-1 p-6 order-2 lg:order-1">
                         {/* Name - Hidden on mobile, shown on desktop */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 hidden lg:block">
+                        <h3 className="text-lg font-bold text-gray-900 mb-2 ">
                             {service.name}
                         </h3>
 
